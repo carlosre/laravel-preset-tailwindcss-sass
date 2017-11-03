@@ -1,0 +1,21 @@
+{
+    "name": "carlosre/laravel-preset-tailwindcss-sass",
+    "description": "Laravel 5.5 frontend preset for Tailwind CSS & Sass",
+    "keywords": ["laravel", "preset", "tailwindcss", "sass"],
+    "license": "MIT",
+    "require": {
+        "laravel/framework": "5.5.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "CarlosRE\\LaravelPresetTailwindCssSass\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "CarlosRE\\LaravelPresetTailwindCssSass\\TailwindCssSassPresetServiceProvider"
+            ]
+        }
+    }
+}
