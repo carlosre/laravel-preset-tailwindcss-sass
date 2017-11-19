@@ -1,5 +1,5 @@
 # Laravel 5.5.x preset for Tailwind CSS & Sass
-A [Tailwind CSS](https://tailwindcss.com) &amp; [Sass](http://sass-lang.com) frontend preset for Laravel.
+A [Tailwind CSS](https://tailwindcss.com) (0.2.1) &amp; [Sass](http://sass-lang.com) frontend preset for Laravel.
 
 # Installation
 ```
