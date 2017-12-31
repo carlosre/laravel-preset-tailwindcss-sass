@@ -31,7 +31,7 @@ class TailwindCssSassPreset extends Preset
 	protected static function updatePackageArray(array $packages)
 	{
 		return [
-			'tailwindcss' => '^0.2.1',
+			'tailwindcss' => '^0.4.0',
 		] + Arr::except($packages, ['bootstrap-sass', 'jquery']);
 	}
 
