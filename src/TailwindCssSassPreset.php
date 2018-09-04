@@ -31,7 +31,7 @@ class TailwindCssSassPreset extends Preset
 	protected static function updatePackageArray(array $packages)
 	{
 		return [
-			'tailwindcss' => '^0.6.4',
+			'tailwindcss' => '^0.6.5',
 		] + Arr::except($packages, ['bootstrap-sass', 'jquery']);
 	}
 
@@ -43,7 +43,7 @@ class TailwindCssSassPreset extends Preset
 	protected static function updateSass()
 	{
 		(new Filesystem)->delete(public_path('css/app.css'));
-		copy(__DIR__.'/tailwindcss-sass-stubs/resources/assets/sass/app.scss', resource_path('assets/sass/app.scss'));
+		copy(__DIR__.'/tailwindcss-sass-stubs/resources/sass/app.scss', self::getResourcePath('sass/app.scss'));
 	}
 
 	/**
@@ -53,7 +53,11 @@ class TailwindCssSassPreset extends Preset
 	 */
 	protected static function updateWebpackConfiguration()
 	{
-		copy(__DIR__.'/tailwindcss-sass-stubs/webpack.mix.js', base_path('webpack.mix.js'));
+		if (version_compare(app()->version(), '5.7.0', '>=')) {
+			copy(__DIR__.'/tailwindcss-sass-stubs/webpack.mix.js', base_path('webpack.mix.js'));
+		} else {
+			copy(__DIR__.'/tailwindcss-sass-stubs/webpack.old.mix.js', base_path('webpack.mix.js'));
+		}
 	}
 
 	/**
@@ -63,8 +67,21 @@ class TailwindCssSassPreset extends Preset
 	 */
 	protected static function updateBootstrapping()
 	{
-		copy(__DIR__.'/tailwindcss-sass-stubs/resources/assets/js/app.js', resource_path('assets/js/app.js'));
+		copy(__DIR__.'/tailwindcss-sass-stubs/resources/js/app.js', self::getResourcePath('js/app.js'));
 		copy(__DIR__.'/tailwindcss-sass-stubs/tailwind.js', base_path('tailwind.js'));
-		copy(__DIR__.'/tailwindcss-sass-stubs/bootstrap.js', resource_path('assets/js/bootstrap.js'));
+		copy(__DIR__.'/tailwindcss-sass-stubs/resources/js/bootstrap.js', self::getResourcePath('js/bootstrap.js'));
+	}
+
+	/**
+	 * @param  string  $filePath
+	 * @return string
+	 */
+	private static function getResourcePath(string $filePath)
+	{
+		if (version_compare(app()->version(), '5.7.0', '>=')) {
+			return resource_path($filePath);
+		}
+
+		return resource_path('assets/'.$filePath);
 	}
 }
